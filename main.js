@@ -14,6 +14,38 @@ console.log("Succefully connected to mongoDB!");
 )
 
 
+const WorkexperienceSchema = new mongoose.Schema({
+companyname : {
+ type: String, required : true
+
+},
+jobtitle  : {
+ type: String, required : true
+
+},
+location: {
+ type: String, required : true
+
+}
+}); 
+
+
+const Workexperience = mongoose.model("Workexperience" , WorkexperienceSchema);
+
+
+app.get("/api/jobs", async(req, res) => {
+try{
+let result = await Workexperience.find({});
+
+return res.json(result);
+
+} catch(err){
+
+    return res.status(500).json(err)
+}
+
+})
+
 
 app.listen(port, () => {
 console.log("server is on port: " + port)
