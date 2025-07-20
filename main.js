@@ -16,15 +16,17 @@ console.log("Succefully connected to mongoDB!");
 
 const WorkexperienceSchema = new mongoose.Schema({
 companyname : {
- type: String, required : true
+ type: String, 
+ required :  [true, "you need to add companyname to post"]
 
 },
 jobtitle  : {
- type: String, required : true
+ type: String, required : [true, "you need to add jobtitle to post"]
 
 },
 location: {
- type: String, required : true
+ type: String, required : [true, "you need to add location to post"]
+
 
 }
 }); 
@@ -44,12 +46,45 @@ return res.json(result);
     return res.status(500).json(err)
 }
 
-})
+});
+
+
+app.post("/api/jobs" , async(req, res) =>{
+try {
+
+let result = await Workexperience.create(req.body);
+
+
+ return res.json(result)
+}  catch(err) {
+return res.status(400).json(err);
+
+}
+
+});
+
+
+
 
 
 app.listen(port, () => {
 console.log("server is on port: " + port)
 
-})
+});
 
 
+
+
+
+/*
+{
+  "companyname" : "test",
+  "jobtitle": "test2",
+    "location": "test3"
+  
+}
+
+
+
+
+*/
