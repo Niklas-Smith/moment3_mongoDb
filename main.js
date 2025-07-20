@@ -63,6 +63,43 @@ return res.status(400).json(err);
 
 });
 
+app.put("/api/jobs/:id" , async(req,res) => {
+const jobid = req.params.id;
+
+
+let companyname = req.body.companyname;
+let jobtitle = req.body.jobtitle;
+let location = req.body.location;
+
+try{
+let result = await Workexperience.updateOne({_id: jobid}, {$set: {companyname,jobtitle,location} }  )
+return res.json(result)
+} catch(err) {
+
+return res.status(400).json(err)
+
+}
+
+
+})
+
+
+
+app.delete("/api/jobs/:id" , async(req, res) => {
+const jobid = req.params.id;
+
+try{
+  let result = await Workexperience.deleteOne( {_id: jobid} )
+ 
+  return res.json(result)
+} catch(err) {
+
+return res.status(400).json(err)
+
+}
+
+
+})
 
 
 
@@ -83,6 +120,30 @@ console.log("server is on port: " + port)
     "location": "test3"
   
 }
+
+
+
+app.put("/api/jobs/:id" , async(req,res) => {
+const jobid = req.params.id;
+
+/*
+let companyname = req.body.companyname;
+let jobtitle = req.body.jobtitle;
+let location = req.body.location;
+*/
+
+/*
+try{
+let result = await Workexperience.updateOne({_id: jobid}, {$set: req.body }  )
+return res.json(result)
+} catch(err) {
+
+return res.status(400).json(err)
+
+}
+
+
+})
 
 
 
